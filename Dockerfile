@@ -16,7 +16,8 @@ ADD server.py .
 EXPOSE 8000
 
 # Add your huggingface auth key here
-ENV HF_AUTH_TOKEN=your_token
+ARG hf_token
+ENV HF_AUTH_TOKEN=${hf_token}
 
 # Add your model weight files 
 # (in this case we have a python script)
