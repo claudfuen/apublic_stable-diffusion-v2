@@ -31,4 +31,4 @@ Generalize this framework to [deploy anything on Banana](https://docs.banana.dev
 
 <br>
 
-## Use Banana for scale.
+## Use Banana for scale
