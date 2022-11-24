@@ -1,6 +1,6 @@
 import torch
 from torch import autocast
-from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
+from diffusers import StableDiffusionPipeline, LMSDiscreteScheduler
 import base64
 from io import BytesIO
 import os
@@ -14,9 +14,14 @@ def init():
     HF_AUTH_TOKEN = os.getenv("HF_AUTH_TOKEN")
     
     
-    # Use the Euler scheduler here instead
-#     scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, revision="fp16", torch_dtype=torch.float16)
+    lms = LMSDiscreteScheduler(
+        beta_start=0.00085, 
+        beta_end=0.012, 
+        beta_schedule="scaled_linear"
+    )
+    
+   
+    pipe = StableDiffusionPipeline.from_pretrained(model_id, revision="fp16", scheduler=lms, torch_dtype=torch.float16)
     model = pipe.to("cuda")
     
 
